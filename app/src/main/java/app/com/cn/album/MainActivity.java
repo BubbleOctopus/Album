@@ -7,18 +7,20 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.com.cn.album.net.R;
+import app.com.cn.album.presenter.MainPresenter;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements MainInteractor{
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -29,12 +31,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new Thread(){
+
+
+
+       /* new Thread(){
             @Override
             public void run() {
                 fetchImageUrlFromContentProviderAndFilter(".jpg");
             }
-        }.start();
+        }.start();*/
     }
 
     public List fetchImageUrlFromContentProvider(){
@@ -99,5 +104,10 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClickResult(View view) {
+
     }
 }

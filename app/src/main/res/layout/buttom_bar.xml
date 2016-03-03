@@ -12,7 +12,7 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rbAddress"
+            android:id="@id/rbRecent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -25,7 +25,7 @@
             android:text="最近" />
 
         <RadioButton
-            android:id="@+id/rbFind"
+            android:id="@id/rbCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -38,7 +38,7 @@
             android:text="列表" />
 
         <RadioButton
-            android:id="@+id/rbMe"
+            android:id="@id/rbMySetting"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
