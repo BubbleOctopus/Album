@@ -1,30 +1,44 @@
 package app.com.cn.album;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.FrameLayout;
+import android.widget.RadioButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import app.com.cn.album.factory.FragmentObjFactory;
+import app.com.cn.album.fragment.BaseFragment;
 import app.com.cn.album.net.R;
-import app.com.cn.album.presenter.MainPresenter;
+import app.com.cn.album.presenter.MainPresenterImpl;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends Activity implements MainInteractor{
+public class MainActivity extends Activity implements MainInteractor, View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final int REQUEST_CODE_PICK_IMAGE = 101;
+
+    private FrameLayout content;
+    private RadioButton rbCateGory;
+    private RadioButton rbMySetting;
+    private RadioButton rbRecent;
+
+    private MainPresenterImpl mMainPresenterImpl;
+    private FragmentObjFactory mFragmentFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +46,22 @@ public class MainActivity extends Activity implements MainInteractor{
         setContentView(R.layout.activity_main);
 
 
+        content = (FrameLayout) findViewById(R.id.content);
+        rbCateGory = (RadioButton) findViewById(R.id.rbCategory);
+        rbMySetting = (RadioButton) findViewById(R.id.rbMySetting);
+        rbRecent = (RadioButton) findViewById(R.id.rbRecent);
 
+
+        rbCateGory.setOnClickListener(this);
+        rbMySetting.setOnClickListener(this);
+        rbRecent.setOnClickListener(this);
+
+        mFragmentFactory = new FragmentObjFactory();
+
+        mMainPresenterImpl = new MainPresenterImpl(content, this, mFragmentFactory);
+
+        defaultFragment();
+        //--init factory
 
        /* new Thread(){
             @Override
@@ -42,10 +71,11 @@ public class MainActivity extends Activity implements MainInteractor{
         }.start();*/
     }
 
-    public List fetchImageUrlFromContentProvider(){
+
+    public List fetchImageUrlFromContentProvider() {
         List<String> listImage = new ArrayList<String>();
         // 扫描外部设备中的照片
-        String str[] = { MediaStore.Images.Media._ID,
+        String str[] = {MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.DISPLAY_NAME,
                 MediaStore.Images.Media.DATA};
         Cursor cursor = MainActivity.this.getContentResolver().query(
@@ -62,7 +92,7 @@ public class MainActivity extends Activity implements MainInteractor{
         return listImage;
     }
 
-    public List fetchImageUrlFromContentProviderAndFilter(final String filter){
+    public List fetchImageUrlFromContentProviderAndFilter(final String filter) {
         final List<String> listImage = new ArrayList<String>();
         listImage.clear();
         Observable.from(fetchImageUrlFromContentProvider())
@@ -106,8 +136,25 @@ public class MainActivity extends Activity implements MainInteractor{
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClickResult(View view) {
+    public void defaultFragment(){
+        BaseFragment fragment = mFragmentFactory.getFragmentInstanceFromFactory(FragmentObjFactory.FRAG_KEY.CATEGORY);
+        String tag = FragmentObjFactory.FRAG_KEY.CATEGORY.toString();
+        onClickResult(fragment, tag);
+    }
 
+    @Override
+    public void onClickResult(BaseFragment fragment, String tag) {
+        CommentUtils.e(TAG,"onClickResult fragment = " + fragment +" : " + tag);
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.content, fragment, tag);
+//        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (null != mMainPresenterImpl)
+            mMainPresenterImpl.onClick(v);
     }
 }

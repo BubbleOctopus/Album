@@ -10,7 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.alexvasilkov.gestures.sample.R;
+import app.com.cn.album.net.R;
 
 /**
  * An ImageView which supports a foreground drawable.

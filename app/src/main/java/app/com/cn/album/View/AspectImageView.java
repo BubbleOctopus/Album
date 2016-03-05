@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
-import com.alexvasilkov.gestures.sample.R;
+import app.com.cn.album.CommentUtils;
+import app.com.cn.album.net.R;
 
 public class AspectImageView extends ForegroundImageView {
 
@@ -21,9 +22,10 @@ public class AspectImageView extends ForegroundImageView {
 
     public AspectImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        TypedArray a = context.obtainStyledAttributes(attrs, new int[] { R.attr.aspect });
+        CommentUtils.e(AspectImageView.class.getSimpleName(), "AspectImageView aspect before = " + aspect);
+        TypedArray a = context.obtainStyledAttributes(attrs, new int[] {R.attr.aspect});
         aspect = a.getFloat(0, aspect);
+        CommentUtils.e(AspectImageView.class.getSimpleName(),"AspectImageView aspect after = " + aspect);
         a.recycle();
     }
 
