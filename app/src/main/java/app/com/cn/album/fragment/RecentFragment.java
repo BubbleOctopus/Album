@@ -90,10 +90,10 @@ public class RecentFragment extends BaseFragment implements ViewPositionAnimator
 
     private void initDecorMargins() {
         // Adjusting margins and paddings to fit translucent decor
-        CommentUtils.paddingForStatusBar(mViewHolder.toolbar, true);
-        CommentUtils.paddingForStatusBar(mViewHolder.toolbarBack, true);
-        CommentUtils.paddingForStatusBar(mViewHolder.pagerToolbar, true);
-        CommentUtils.marginForStatusBar(mViewHolder.grid);//顶部加上状态栏的高度
+//        CommentUtils.paddingForStatusBar(mViewHolder.toolbar, true);
+//        CommentUtils.paddingForStatusBar(mViewHolder.toolbarBack, true);
+//        CommentUtils.paddingForStatusBar(mViewHolder.pagerToolbar, true);
+//        CommentUtils.marginForStatusBar(mViewHolder.grid);//顶部加上状态栏的高度
         CommentUtils.paddingForNavBar(mViewHolder.grid);
         CommentUtils.marginForNavBar(mViewHolder.pagerTitle);
     }

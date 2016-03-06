@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fragment_name1"/>
-</LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/flickr_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        android:clipToPadding="false"
+        android:padding="@dimen/flickr_list_margin"
+        android:scrollbarStyle="outsideOverlay"
+
+        tools:listitem="@layout/item_flickr_image" />
+
+    <android.support.v7.widget.Toolbar style="@style/App.Toolbar" />
+
+</FrameLayout>
