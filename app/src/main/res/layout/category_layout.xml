@@ -5,15 +5,14 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/flickr_list"
+        android:id="@+id/rbCategory_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?actionBarSize"
         android:clipToPadding="false"
         android:padding="@dimen/flickr_list_margin"
         android:scrollbarStyle="outsideOverlay"
-
-        tools:listitem="@layout/item_flickr_image" />
+        tools:listitem="@layout/item_category_image" />
 
     <android.support.v7.widget.Toolbar style="@style/App.Toolbar" />
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <app.com.cn.album.View.AspectImageView
+            android:id="@+id/aImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="150dip"
+            android:layout_margin="@dimen/flickr_list_margin"
+            android:background="@drawable/image_background"
+            android:foreground="?selectableItemBackground"
+            android:paddingBottom="30dip"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:paddingTop="18dip"
+            android:scaleType="centerCrop"
+            android:src="@drawable/albums_bg"
+            app:aspect="1"
+            tools:src="@drawable/albums_bg" />
+
+
+        <TextView
+            android:id="@+id/group_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/albums_icon_bg"
+            android:gravity="center"
+            android:layout_marginBottom="10dip"
+            android:text="5"
+            android:layout_gravity="bottom|center_horizontal" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/group_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/framelayout"
+        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="Camera"
+        android:textSize="16sp" />
+
+</RelativeLayout>
