@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements MainInteractor, V
     private RadioButton rbMySetting;
     private RadioButton rbRecent;
 
+    private RadioGroup rgMenu;
+
     private MainPresenterImpl mMainPresenterImpl;
     private FragmentObjFactory mFragmentFactory;
 
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor, V
         rbCateGory = (RadioButton) findViewById(R.id.rbCategory);
         rbMySetting = (RadioButton) findViewById(R.id.rbMySetting);
         rbRecent = (RadioButton) findViewById(R.id.rbRecent);
+        rgMenu = (RadioGroup) findViewById(R.id.tab_menu);
 
 
         rbCateGory.setOnClickListener(this);
@@ -142,6 +146,13 @@ public class MainActivity extends AppCompatActivity implements MainInteractor, V
         onClickResult(fragment, tag);
     }
 
+    public void onPositionUpdate(float state){
+        if(null != rgMenu) {
+            rgMenu.setVisibility(state == 1f ? View.INVISIBLE : View.VISIBLE);
+            rgMenu.setAlpha((float) Math.sqrt(1d - state)); // Slow down toolbar animation
+        }
+    }
+
     @Override
     public void onClickResult(BaseFragment fragment, String tag) {
         CommentUtils.e(TAG,"onClickResult fragment = " + fragment +" : " + tag);
@@ -159,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor, V
     }
 
     @Override
-    public void onBackPressed() {
+     public void onBackPressed() {
         if(null != mMainPresenterImpl && mMainPresenterImpl.onBackPressed())
             return;
         super.onBackPressed();

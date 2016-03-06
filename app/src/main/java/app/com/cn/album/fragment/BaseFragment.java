@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import app.com.cn.album.MainActivity;
+
 /**
  * 作者：ArMn on 2016/3/3
  * 邮箱：859686819@qq.com
@@ -73,6 +75,16 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public void onPositionUpdateToActivity(float state){
+        MainActivity mActivity;
+        try {
+            mActivity = (MainActivity) mContext;
+        } catch (Exception e){
+            return;
+        }
+        mActivity.onPositionUpdate(state);
     }
 
     public abstract View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);

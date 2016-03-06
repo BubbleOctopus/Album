@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -89,10 +90,10 @@ public class RecentFragment extends BaseFragment implements ViewPositionAnimator
 
     private void initDecorMargins() {
         // Adjusting margins and paddings to fit translucent decor
-//        CommentUtils.paddingForStatusBar(mViewHolder.toolbar, true);
-//        CommentUtils.paddingForStatusBar(mViewHolder.toolbarBack, true);
-//        CommentUtils.paddingForStatusBar(mViewHolder.pagerToolbar, true);
-//        CommentUtils.marginForStatusBar(mViewHolder.grid);//顶部加上状态栏的高度
+        CommentUtils.paddingForStatusBar(mViewHolder.toolbar, true);
+        CommentUtils.paddingForStatusBar(mViewHolder.toolbarBack, true);
+        CommentUtils.paddingForStatusBar(mViewHolder.pagerToolbar, true);
+        CommentUtils.marginForStatusBar(mViewHolder.grid);//顶部加上状态栏的高度
         CommentUtils.paddingForNavBar(mViewHolder.grid);
         CommentUtils.marginForNavBar(mViewHolder.pagerTitle);
     }
@@ -145,22 +146,22 @@ public class RecentFragment extends BaseFragment implements ViewPositionAnimator
         mViewHolder.pager.addOnPageChangeListener(mPagerListener);
         mViewHolder.pager.setPageTransformer(true, new DepthPageTransformer());
 
-//        mViewHolder.pagerToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-//        mViewHolder.pagerToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(@NonNull View v) {
-//                onBackPressed();
-//            }
-//        });
+        mViewHolder.pagerToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        mViewHolder.pagerToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(@NonNull View v) {
+                onBackPressed();
+            }
+        });
 
-//        onCreateOptionsMenuFullMode(mViewHolder.pagerToolbar.getMenu());
+        onCreateOptionsMenuFullMode(mViewHolder.pagerToolbar.getMenu());
 
-//        mViewHolder.pagerToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                return onOptionsItemSelectedFullMode(item);
-//            }
-//        });
+        mViewHolder.pagerToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return onOptionsItemSelectedFullMode(item);
+            }
+        });
     }
 
     private void initAnimator() {
@@ -207,14 +208,16 @@ public class RecentFragment extends BaseFragment implements ViewPositionAnimator
         mViewHolder.pagerBackground.setVisibility(state == 0f ? View.INVISIBLE : View.VISIBLE);
         mViewHolder.pagerBackground.getBackground().setAlpha((int) (255 * state));
 
-//        mViewHolder.toolbar.setVisibility(state == 1f ? View.INVISIBLE : View.VISIBLE);
-//        mViewHolder.toolbar.setAlpha((float) Math.sqrt(1d - state)); // Slow down toolbar animation
-//
-//        mViewHolder.pagerToolbar.setVisibility(state == 0f ? View.INVISIBLE : View.VISIBLE);
-//        mViewHolder.pagerToolbar.setAlpha(state);
+        mViewHolder.toolbar.setVisibility(state == 1f ? View.INVISIBLE : View.VISIBLE);
+        mViewHolder.toolbar.setAlpha((float) Math.sqrt(1d - state)); // Slow down toolbar animation
+
+        mViewHolder.pagerToolbar.setVisibility(state == 0f ? View.INVISIBLE : View.VISIBLE);
+        mViewHolder.pagerToolbar.setAlpha(state);
 
         mViewHolder.pagerTitle.setVisibility(state == 1f ? View.VISIBLE : View.INVISIBLE);
 
+        //--call back activity
+        onPositionUpdateToActivity(state);
         if (isLeaving && state == 0f) {
             mPagerAdapter.setActivated(false);
         }
@@ -244,7 +247,6 @@ public class RecentFragment extends BaseFragment implements ViewPositionAnimator
     }
 
 
-
     @Override
     public void onPhotoClick(Photo photo, int position, ImageView image) {
         //--GridView item onClick callback.
@@ -253,22 +255,22 @@ public class RecentFragment extends BaseFragment implements ViewPositionAnimator
     }
 
     private class ViewHolder {
-        //        public final Toolbar toolbar;
-//        public final View toolbarBack;
+        public final Toolbar toolbar;
+        public final View toolbarBack;
         public final RecyclerView grid;
 
         public final ViewPager pager;
-        //        public final Toolbar pagerToolbar;
+        public final Toolbar pagerToolbar;
         public final TextView pagerTitle;
         public final View pagerBackground;
 
         public ViewHolder(Activity activity) {
-//            toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-//            toolbarBack = activity.findViewById(R.id.flickr_toolbar_back);
+            toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+            toolbarBack = activity.findViewById(R.id.flickr_toolbar_back);
             grid = (RecyclerView) activity.findViewById(R.id.flickr_list);
 
             pager = (ViewPager) activity.findViewById(R.id.flickr_pager);
-//            pagerToolbar = (Toolbar) activity.findViewById(R.id.flickr_full_toolbar);
+            pagerToolbar = (Toolbar) activity.findViewById(R.id.flickr_full_toolbar);
             pagerTitle = (TextView) activity.findViewById(R.id.flickr_full_title);
             pagerBackground = activity.findViewById(R.id.flickr_full_background);
         }
