@@ -71,8 +71,19 @@ public class MainPresenterImpl implements MainPresenter {
             CommentUtils.d(TAG, "not transition fragment");
             return;
         }
+        preFragment = nextFragment;
         if(null != mCallBack)
             mCallBack.onClickResult(fragment, nextFragment.toString());
 
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if(null != mFragmentFactory && null != preFragment){
+            BaseFragment baseFragment = mFragmentFactory.getFragmentInstanceFromFactory(preFragment);
+            return baseFragment.onBackPressed();
+        }else {
+            return false;
+        }
     }
 }

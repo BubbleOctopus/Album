@@ -9,4 +9,6 @@ import android.view.View;
 public interface MainPresenter {
 
     void onClick(View view);
+
+    boolean onBackPressed();
 }

@@ -22,10 +22,8 @@ public class AspectImageView extends ForegroundImageView {
 
     public AspectImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        CommentUtils.e(AspectImageView.class.getSimpleName(), "AspectImageView aspect before = " + aspect);
         TypedArray a = context.obtainStyledAttributes(attrs, new int[] {R.attr.aspect});
         aspect = a.getFloat(0, aspect);
-        CommentUtils.e(AspectImageView.class.getSimpleName(),"AspectImageView aspect after = " + aspect);
         a.recycle();
     }
 

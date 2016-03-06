@@ -78,4 +78,6 @@ public abstract class BaseFragment extends Fragment {
     public abstract View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
     public abstract void initViewIDs(View view);
     public void initData(){};
+    public boolean onBackPressed(){return false;};
+
 }

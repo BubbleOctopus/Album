@@ -2,9 +2,12 @@ package app.com.cn.album.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alexvasilkov.gestures.Settings;
 import com.alexvasilkov.gestures.animation.ViewPositionAnimator;
 import com.alexvasilkov.gestures.commons.RecyclePagerAdapter;
 
@@ -76,7 +79,17 @@ public class FlickrPhotoPagerAdapter
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-
+//        holder.image.getController().getSettings()
+//                .setPanEnabled(false)
+//                .setZoomEnabled(true)
+//                .setDoubleTapEnabled(true)
+//                .setOverscrollDistance(holder.image.getContext(), 0.f, 0.f)
+//                .setOverzoomFactor(Settings.OVERZOOM_FACTOR)
+//                .setRotationEnabled(false)
+//                .setRestrictRotation(false)
+//                .setFillViewport(true)
+//                .setFitMethod(Settings.Fit.INSIDE)
+//                .setGravity(Gravity.CENTER);
         // Temporary disabling touch controls
         if (!holder.gesturesDisabled) {
             holder.image.getController().getSettings().disableGestures();
@@ -136,7 +149,8 @@ public class FlickrPhotoPagerAdapter
         public boolean gesturesDisabled;
 
         public ViewHolder(ViewGroup parent) {
-            super(View.inflate(parent.getContext(), R.layout.item_flickr_full_image, null));
+            super(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_flickr_full_image, (ViewGroup) parent, false));
+//            super(View.inflate(parent.getContext(), R.layout.item_flickr_full_image, null));
             image = (GestureImageView) itemView.findViewById(R.id.flickr_full_image);
             progress = itemView.findViewById(R.id.flickr_full_progress);
         }

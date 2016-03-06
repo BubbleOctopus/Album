@@ -1,11 +1,11 @@
 package app.com.cn.album;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +26,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends Activity implements MainInteractor, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements MainInteractor, View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -156,5 +156,12 @@ public class MainActivity extends Activity implements MainInteractor, View.OnCli
     public void onClick(View v) {
         if (null != mMainPresenterImpl)
             mMainPresenterImpl.onClick(v);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(null != mMainPresenterImpl && mMainPresenterImpl.onBackPressed())
+            return;
+        super.onBackPressed();
     }
 }

@@ -10,6 +10,16 @@ public class Photo {
     public String sThumbnailUrl;
     public String sLargeSize;
     public String sLargeUrl;
+    public String ids;
+    public String sFolderName;
+    public Photo(String ids, String sFolderName, String sMediumUrl, String sThumbnailUrl, String sLargeSize, String sLargeUrl){
+        this.ids = ids;
+        this.sFolderName = sFolderName;
+        this.sMediumUrl = sMediumUrl;
+        this.sThumbnailUrl = sThumbnailUrl;
+        this.sLargeSize = sLargeSize;
+        this.sLargeUrl = sLargeUrl;
+    }
 
     public String getLargeUrl() {
         return sLargeUrl;
